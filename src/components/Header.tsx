@@ -9,19 +9,22 @@ import { FiSun, FiMoon } from "react-icons/fi";
  */
 interface NavLink {
   label: string;
-  sectionId: string;
+  sectionId?: string;
+  to?: string;
 }
 
 const Header: React.FC = memo(() => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDark, setIsDark] = useState(false);
+  const [activeNav, setActiveNav] = useState("Home");
   const navigate = useNavigate();
   const location = useLocation();
 
   const navLinks: NavLink[] = [
     { label: "Home", sectionId: "home" },
     { label: "About", sectionId: "about" },
+    { label: "Collection", to: "/collections" },
     { label: "Contact", sectionId: "contact" },
   ];
 
@@ -89,6 +92,47 @@ const Header: React.FC = memo(() => {
     }
   }, [location.pathname, location.state, navigate]);
 
+  useEffect(() => {
+    if (location.pathname === "/collections") {
+      setActiveNav("Collection");
+      return;
+    }
+
+    const sectionMap = [
+      { id: "home", label: "Home" },
+      { id: "about", label: "About" },
+      { id: "contact", label: "Contact" },
+    ];
+
+    const updateActiveSection = () => {
+      let currentLabel = "Home";
+      const threshold = 140;
+
+      for (const section of sectionMap) {
+        const element = document.getElementById(section.id);
+        if (!element) continue;
+        if (element.getBoundingClientRect().top <= threshold) {
+          currentLabel = section.label;
+        }
+      }
+
+      setActiveNav(currentLabel);
+    };
+
+    updateActiveSection();
+    window.addEventListener("scroll", updateActiveSection, { passive: true });
+    return () => window.removeEventListener("scroll", updateActiveSection);
+  }, [location.pathname]);
+
+  const desktopNavClass = (isActive: boolean) =>
+    `relative text-sm tracking-wide pb-2 transition-all duration-300 ${
+      isActive
+        ? "text-accent"
+        : "text-muted-foreground hover:text-foreground"
+    } after:content-[''] after:absolute after:left-0 after:-bottom-0.5 after:h-0.5 after:rounded-full after:bg-gradient-to-r after:from-accent after:to-gold after:transition-all after:duration-300 ${
+      isActive ? "after:w-full after:shadow-[var(--shadow-gold)]" : "after:w-0 hover:after:w-full"
+    }`;
+
   return (
     <>
       <motion.header
@@ -116,26 +160,30 @@ const Header: React.FC = memo(() => {
           </Link>
 
           <div className="hidden md:flex items-center gap-8">
-            {navLinks.map(({ label, sectionId }) => (
-              <button
-                type="button"
-                key={label}
-                onClick={() => handleSectionNavigation(sectionId)}
-                className={`${
-                  label === "Contact"
-                    ? "btn-outline-gold !px-5 !py-2 !rounded-full dark:!text-white"
-                    : "text-sm text-muted-foreground hover:text-foreground"
-                } transition-colors duration-300 tracking-wide`}
-              >
-                {label}
-              </button>
-            ))}
-            <Link
-              to="/collections"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-300 tracking-wide"
-            >
-              Collection
-            </Link>
+            {navLinks.map(({ label, sectionId, to }) =>
+              to ? (
+                <Link
+                  key={label}
+                  to={to}
+                  onClick={() => setActiveNav(label)}
+                  className={desktopNavClass(activeNav === label)}
+                >
+                  {label}
+                </Link>
+              ) : (
+                <button
+                  type="button"
+                  key={label}
+                  onClick={() => {
+                    setActiveNav(label);
+                    handleSectionNavigation(sectionId as string);
+                  }}
+                  className={desktopNavClass(activeNav === label)}
+                >
+                  {label}
+                </button>
+              )
+            )}
 
             <motion.button
               whileTap={{ scale: 0.9, rotate: 15 }}
@@ -177,32 +225,50 @@ const Header: React.FC = memo(() => {
             transition={{ duration: 0.3 }}
             className="fixed inset-0 z-40 bg-background/95 backdrop-blur-xl flex flex-col items-center justify-center gap-8 md:hidden"
           >
-            {navLinks.map(({ label, sectionId }, index) => (
-              <motion.button
-                type="button"
-                key={label}
-                onClick={() => handleSectionNavigation(sectionId)}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                className="text-2xl font-light text-foreground hover:text-accent transition-colors"
-              >
-                {label}
-              </motion.button>
-            ))}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: navLinks.length * 0.1 }}
-            >
-              <Link
-                to="/collections"
-                onClick={closeMenu}
-                className="text-2xl font-light text-foreground hover:text-accent transition-colors"
-              >
-                Collection
-              </Link>
-            </motion.div>
+            {navLinks.map(({ label, sectionId, to }, index) =>
+              to ? (
+                <motion.div
+                  key={label}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                >
+                  <Link
+                    to={to}
+                    onClick={() => {
+                      setActiveNav(label);
+                      closeMenu();
+                    }}
+                    className={`text-2xl font-light transition-colors ${
+                      activeNav === label
+                        ? "text-accent"
+                        : "text-foreground hover:text-accent"
+                    }`}
+                  >
+                    {label}
+                  </Link>
+                </motion.div>
+              ) : (
+                <motion.button
+                  type="button"
+                  key={label}
+                  onClick={() => {
+                    setActiveNav(label);
+                    handleSectionNavigation(sectionId as string);
+                  }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  className={`text-2xl font-light transition-colors ${
+                    activeNav === label
+                      ? "text-accent"
+                      : "text-foreground hover:text-accent"
+                  }`}
+                >
+                  {label}
+                </motion.button>
+              )
+            )}
           </motion.div>
         )}
       </AnimatePresence>

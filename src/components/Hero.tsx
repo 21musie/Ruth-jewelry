@@ -59,10 +59,10 @@ const Hero: React.FC = memo(() => {
             </header>
             <div className="space-y-3 sm:space-y-4">
               <Link
-                to="#collection"
+                to="/collections"
                 className="inline-flex items-center justify-center bg-gradient-to-r from-gold via-gold-light to-gold-dark text-primary-foreground px-8 sm:px-10 py-3.5 rounded-full text-base sm:text-lg font-semibold tracking-wide border border-white/20 backdrop-blur-sm shadow-[0_10px_30px_-12px_hsl(var(--gold)/0.65)] hover:shadow-[0_18px_40px_-14px_hsl(var(--gold)/0.8)] hover:-translate-y-1 hover:scale-[1.02] active:translate-y-0 active:scale-[0.99] transition-all duration-300 w-full sm:w-auto"
               >
-                SHOP NOW COLLECTION
+                GO TO COLLECTIONS
               </Link>
               <p className="text-xs sm:text-sm text-muted-foreground">
                 For yourself and for your loved ones...

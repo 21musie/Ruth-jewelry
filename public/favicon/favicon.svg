@@ -1,3 +1,23 @@
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="30" viewBox="0 0 32 30"><image width="32" height="30" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAeCAMAAAB61OwbAAAAUVBMVEX////l5eXHx8f5+fkFBQUVFRVUVFQAAAAKCgoODg41NTWfn5/b29vw8PCurq4mJiZjY2PT09OGhoa4uLhJSUl4eHhubm5BQUHBwcGSkpIdHR0TiodbAAAACXBIWXMAAAsTAAALEwEAmpwYAAABa0lEQVR42nWT27aEIAxDg4JBBe+Ojv//oWeVouNcTh4bTGk3ovC+TrJPZO1OSk5kV6BiljPqjwcvVSVQkPTeWvKRfNOTtNaLv5RSqcgmmIm0BYC4kbYNZiW5xfSJRMwoG3IDSun4BDpLNrmnRGzATPYRD5IrMHuyD+etNQKVC5hIDkBRk8eISxoRRrR6sdGRrnj5Z4Q2jgg96WfcpRES3BuYhrTdm4/CkrM5SDciNiRbfKgiDwneUS4654eKtDh2uocV3+pq0rfAwHPlnzJtG4BV9/CvJgXYDY/ip/8UQGVq8+OeSHtsFAdp9y8/ATLapiGXr0kVUMKBPS//pgwo40iv6M0PB1nv2BVHmZZ/37c8RNtpzIjukTbWlJefAcmxFGNHjP42agYUM+eFrCDT9jH7AmjSY9K3SyMYJ8Uk2VwVjR4TLeRm4kAe6V0LINa1f3HUf8ln8NPrR7s4DmelDmhpvcqt11jB5SLXP0pMFI7uYsFOAAAAAElFTkSuQmCC"></image><style>@media (prefers-color-scheme: light) { :root { filter: none; } }
-@media (prefers-color-scheme: dark) { :root { filter: none; } }
-</style></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#111111" />
+      <stop offset="100%" stop-color="#000000" />
+    </linearGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F2D77A" />
+      <stop offset="100%" stop-color="#D9A441" />
+    </linearGradient>
+  </defs>
+  <rect x="4" y="4" width="56" height="56" rx="14" fill="url(#bg)" />
+  <rect x="4" y="4" width="56" height="56" rx="14" fill="none" stroke="#F2D77A" stroke-width="2" opacity="0.75" />
+  <text
+    x="32"
+    y="42"
+    text-anchor="middle"
+    font-family="Playfair Display, Georgia, serif"
+    font-size="34"
+    font-weight="700"
+    fill="url(#gold)"
+  >R</text>
+</svg>

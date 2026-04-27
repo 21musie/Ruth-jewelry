@@ -16,7 +16,7 @@ const galleryItems = [
 
 const PictureGallery: React.FC = () => {
   return (
-    <section className="py-20 bg-silk/60">
+    <section className="py-20 bg-silk/75 border-t border-gold/55 dark:border-gold/45">
       <div className="container mx-auto px-6">
         <div className="text-center mb-10">
           <p className="text-accent tracking-[0.2em] text-xs uppercase mb-3">Gallery</p>

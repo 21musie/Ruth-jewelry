@@ -20,7 +20,10 @@ const About: React.FC = () => {
   const visualRef = useScrollAnimation();
 
   return (
-    <section id="about" className="about-section py-20 bg-silk/40 scroll-mt-28">
+    <section
+      id="about"
+      className="about-section py-20 bg-silk/55 border-y border-gold/55 dark:border-gold/45 scroll-mt-28"
+    >
       <div className="container mx-auto px-6">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -47,10 +50,10 @@ const About: React.FC = () => {
                 <p>All of this comes at a fair amount of money.</p>
               </div>
               <Link
-                to="#"
+                to="/collections"
                 className="btn-gold text-base sm:text-lg font-medium w-full sm:w-auto"
               >
-                READ MORE
+                SHOP NOW
               </Link>
             </div>
 
