@@ -1,6 +1,6 @@
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, HashRouter, Routes, Route } from "react-router-dom";
 import { Suspense, lazy } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -20,6 +20,9 @@ const queryClient = new QueryClient({
   },
 });
 
+const isGitHubPagesHost = window.location.hostname.includes("github.io");
+const Router = isGitHubPagesHost ? HashRouter : BrowserRouter;
+
 /**
  * App
  * Root application component.
@@ -30,7 +33,7 @@ const queryClient = new QueryClient({
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <BrowserRouter>
+      <Router>
         <Header />
         {/* Suspense fallback for lazy-loaded routes */}
         <Suspense fallback={<div className="p-8 text-center">Loading...</div>}>
@@ -40,7 +43,7 @@ const App = () => (
           </Routes>
         </Suspense>
         <Footer />
-      </BrowserRouter>
+      </Router>
     </TooltipProvider>
   </QueryClientProvider>
 );
